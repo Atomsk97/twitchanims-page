@@ -39,14 +39,12 @@ export default function AnimCard({ anim }) {
         <p className="text-sm">{anim.description}</p>
       </div>
       {/* Reproductor */}
-      <div className="flex justify-center">
-        {anim.media && (
-          <MediaPlayer
-            type={anim.media.fileType}
-            public_id={anim.media.public_id}
-          />
-        )}
-      </div>
+      {anim.media && (
+        <MediaPlayer
+          type={anim.media.fileType}
+          public_id={anim.media.public_id}
+        />
+      )}
       <Toaster />
     </div>
   );

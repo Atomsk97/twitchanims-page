@@ -1,6 +1,8 @@
 import { AdvancedImage, AdvancedVideo } from "@cloudinary/react";
 import { Cloudinary } from "@cloudinary/url-gen";
-import { limitFit } from "@cloudinary/url-gen/actions/resize";
+import { fit, fillPad } from "@cloudinary/url-gen/actions/resize";
+import { ar16X9 } from "@cloudinary/url-gen/qualifiers/aspectRatio";
+import { autoGravity } from "@cloudinary/url-gen/qualifiers/gravity";
 
 export default function MediaPlayer({ type, public_id }) {
   const cld = new Cloudinary({
@@ -18,11 +20,12 @@ export default function MediaPlayer({ type, public_id }) {
     myFile = cld.video(public_id);
     isImg = false;
   }
-  
-  myFile.resize(limitFit().width(360).height(720))
+
+  myFile.resize(fit().height(540));
+  myFile.resize(fillPad().height(540).aspectRatio(ar16X9()).gravity(autoGravity()));
 
   return (
-    <div>
+    <div className="flex justify-center max-h-96">
       {isImg ? (
         <AdvancedImage cldImg={myFile} />
       ) : (
